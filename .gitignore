@@ -1,0 +1,12 @@
+node_modules/
+.vscode/
+.prettierrc.yml
+
+# config containing credentials
+# when shipped, a template is provided as `config_default.json`
+config.json
+
+# data files/dirs
+img/
+latest.json
+subscribers.json

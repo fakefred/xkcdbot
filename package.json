@@ -1,0 +1,17 @@
+{
+  "name": "xkcdbot",
+  "version": "0.3.2",
+  "description": "an xkcd bot on mastodon.",
+  "main": "xkcdbot.js",
+  "scripts": {
+    "test": "node xkcdbot.js"
+  },
+  "author": "fakefred",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "download": "^7.1.0",
+    "fs-extra": "^8.1.0",
+    "mastodon": "^1.2.2",
+    "xkcd": "^1.1.3"
+  }
+}

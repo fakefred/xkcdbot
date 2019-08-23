@@ -1,0 +1,15 @@
+{
+    "api_url": "",
+    "access_token": "",
+    "maintainer": "",
+    "operators": [],
+    "debug": false,
+    "run_once_and_force_publish": false,
+    "poll_interval_in_minutes": 5,
+    "subscribers_file": "./subscribers.json",
+    "check_subscription_interval_in_minutes": 5,
+    "alt_text_char_limit": 400,
+    "comment_for_subscribers_prompt": "A heads-up for my subscribers:",
+    "enable_subscription": true,
+    "enable_mention_subscribers": true
+}
