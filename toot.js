@@ -9,8 +9,10 @@ const deliverComments = require('./delivery')
 
 const getValueOrFallback = require('./utils').getValueOrFallback
 const errorLog = require('./utils').errorLog
+const log = require('./utils').logIfDebug
 
 const toot = (bot, filename, num, title, alt, options = null) => {
+    log('tooting')
     const debug = getValueOrFallback(options, 'debug', false)
     const maintainer = getValueOrFallback(options, 'maintainer', '')
 
@@ -21,6 +23,7 @@ const toot = (bot, filename, num, title, alt, options = null) => {
         focus: '-1,1' // upper-left corner
     })
         .then(res => {
+            log('img uploaded')
             // attach media to status and post
             // when in debug mode, DM maintainer
             bot.post('statuses', {
@@ -33,7 +36,8 @@ const toot = (bot, filename, num, title, alt, options = null) => {
                 visibility: debug ? 'direct' : 'public',
                 sensitive: false
             }).then(resp => {
-                if (config.enable_mention_subscribers) {
+                log('toot published')
+                if (config.enable.mention_subscribers) {
                     deliverComments(bot, resp.data.id)
                 }
             })

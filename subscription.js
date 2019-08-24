@@ -11,8 +11,12 @@ const errorLog = require('./utils').errorLog
 const config = fs.readJSONSync('./config.json')
 const list_file = config.subscribers_file
 
-const dismissNotification = (bot, id) => {
-    bot.post('notifications/dismiss', { id })
+const dismissNotification = require('./notification_utils').dismissNotification
+const replyTo = require('./notification_utils').replyTo
+const log = require('./utils').logIfDebug
+
+const replyToAction = (bot, action, id, acct) => {
+    replyTo(bot, id, 'direct', acct, `successfully ${action}d.`)
 }
 
 const checkTagType = tags => {
@@ -26,58 +30,47 @@ const checkTagType = tags => {
     return ''
 }
 
-const replyToAction = (bot, action, id, acct) => {
-    bot.post('statuses', {
-        in_reply_to_id: id,
-        visibility: 'direct',
-        status: `@${acct} successfully ${action}d.`
-    })
-}
-
 // valid subscription message:
 // @<account of bot> #subscribe
 // visibility: whatever
 // "#subscribe" is a tag; one and only tag in the status
-const checkForSubscription = bot => {
-    bot.get('notifications', {
-        limit: 50,
-        exclude_types: ['follow', 'favourite', 'reblog']
-    })
-        .then(res => {
-            res.data.forEach(notif => {
-                const subscribers = fs.readJSONSync(list_file)
+const checkForSubscription = (bot, notifications) => {
+    if (config.enable.record_subscription) {
+        log('running through subscription check')
+        notifications.forEach(notif => {
+            const subscribers = fs.readJSONSync(list_file)
 
-                if (notif.status) {
-                    // `status` is nullable
-                    const tags = notif.status.tags
-                    const acct = notif.status.account.acct
+            if (notif.type === 'mention' && notif.status) {
+                // `status` is nullable
+                const tags = notif.status.tags
+                const acct = notif.status.account.acct
 
-                    if (
-                        // subscribe
-                        checkTagType(tags) === 'subscribe' &&
-                        !subscribers.includes(acct) // prevent duplicate
-                    ) {
-                        console.info('subscribed:', acct)
-                        subscribers.push(acct)
-                        fs.writeJSONSync(list_file, subscribers)
-                        replyToAction(bot, 'subscribe', notif.status.id, acct)
-                    } else if (
-                        // unsubscribe
-                        // reverse process
-                        checkTagType(tags) === 'unsubscribe' &&
-                        subscribers.includes(acct)
-                    ) {
-                        console.info('unsubscribed:', acct)
-                        // remove user from list
-                        subscribers.splice(subscribers.indexOf(acct), 1)
-                        fs.writeJSONSync(list_file, subscribers)
-                        replyToAction(bot, 'unsubscribe', notif.status.id, acct)
-                    }
+                if (
+                    // subscribe
+                    checkTagType(tags) === 'subscribe' &&
+                    !subscribers.includes(acct) // prevent duplicate
+                ) {
+                    console.info('subscribed:', acct)
+                    subscribers.push(acct)
+                    fs.writeJSONSync(list_file, subscribers)
+                    replyToAction(bot, 'subscribe', notif.status.id, acct)
+                    dismissNotification(bot, notif.id)
+                } else if (
+                    // unsubscribe
+                    // reverse process
+                    checkTagType(tags) === 'unsubscribe' &&
+                    subscribers.includes(acct)
+                ) {
+                    console.info('unsubscribed:', acct)
+                    // remove user from list
+                    subscribers.splice(subscribers.indexOf(acct), 1)
+                    fs.writeJSONSync(list_file, subscribers)
+                    replyToAction(bot, 'unsubscribe', notif.status.id, acct)
+                    dismissNotification(bot, notif.id)
                 }
-                dismissNotification(bot, notif.id)
-            })
+            }
         })
-        .catch(e => errorLog(e, 'check for subscription'))
+    }
 }
 
 module.exports = checkForSubscription

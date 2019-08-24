@@ -1,15 +1,27 @@
 {
-    "api_url": "",
-    "access_token": "",
-    "maintainer": "",
-    "operators": [],
+    "api": {
+        "api_url": "",
+        "access_token": ""
+    },
+    "personnel": {
+        "maintainer": "",
+        "operators": []
+    },
+    "intervals": {
+        "poll_xkcd": 5,
+        "get_notifications": 5
+    },
+    "enable": {
+        "record_subscription": true,
+        "mention_subscribers": true
+    },
     "debug": false,
-    "run_once_and_force_publish": false,
-    "poll_interval_in_minutes": 5,
+    "debug_options": {
+        "test_xkcd": false,
+        "test_notifications": false
+    },
     "subscribers_file": "./subscribers.json",
-    "check_subscription_interval_in_minutes": 5,
     "alt_text_char_limit": 400,
     "comment_for_subscribers_prompt": "A heads-up for my subscribers:",
-    "enable_subscription": true,
-    "enable_mention_subscribers": true
+    "notification_per_page": 50
 }

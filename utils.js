@@ -18,4 +18,9 @@ const limitChars = (str, chars) => {
     return str.length > chars ? str.slice(0, chars - 3) + '...' : str
 }
 
-module.exports = { getValueOrFallback, errorLog, limitChars }
+const config = fs.readJSONSync('./config.json')
+const logIfDebug = msg => {
+    if (config.debug) console.log(msg)
+}
+
+module.exports = { getValueOrFallback, errorLog, limitChars, logIfDebug }
