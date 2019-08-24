@@ -17,9 +17,13 @@ Either you subscribed or unsubscribed, you will receive a direct message from xk
 
 ## Hosting Guide
 
-> NYI = Not Yet Implemented
+`NYI = Not Yet Implemented`
 
-xkcdbot is powered by Node.js. The node.js toolchain is required.
+### Node.js
+
+xkcdbot is powered by Node.js. The Node.js toolchain is required.
+
+### Access Token
 
 You will need to obtain an access_token from your mastodon instance. It's in the `Development` pane under `Preferences`. You will need to grant the bot these permissions:
 
@@ -28,6 +32,8 @@ You will need to obtain an access_token from your mastodon instance. It's in the
 -   write:media (upload xkcd image)
 -   write:notifications (dismiss subscription notification)
 -   write:statuses
+
+### config.json
 
 Because it contains credentials, the `config.json` I am using is not uploaded, and is listed in `.gitignore`. To use this bot, you need to rename the shipped `config_default.json` to `config.json`. Then, fill out `config.json`. Here is the shipped file:
 
@@ -82,5 +88,11 @@ Debug mode:
 -   **alt_text_char_limit**: some xkcd's, such as [1363: xkcd Phone](https://xkcd.com/1363), have tediously long alt-text. However, a toot has to fit in (usually) a maximum of 500 chars, and for the image description (used to replicate the "hover text" effect), 420. This cuts the alt-text into the size limit. Recommended value: 300 - 410.
 -   **comment_for_subscribers_prompt**: the text starting all comments addressing subscribers, so that they don't get confused.
 -   **notification_per_page**: value of the `limit` param sent to `GET /notifications`.
+
+### subscribers.json
+
+The subscribers file is shipped as `subscribers_default.json`. Rename it to `subscribers.json` before it can work.
+
+### The Run And Go
 
 After that, you can start this bot with `node xkcdbot.js` or `npm run test` or use your process manager for production.
