@@ -1,6 +1,6 @@
 {
   "name": "xkcdbot",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "an xkcd bot on mastodon.",
   "main": "xkcdbot.js",
   "scripts": {

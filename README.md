@@ -63,7 +63,8 @@ Because it contains credentials, the `config.json` I am using is not uploaded, a
     "subscribers_file": "./subscribers.json",
     "alt_text_char_limit": 400,
     "comment_for_subscribers_prompt": "A heads-up for my subscribers:",
-    "notification_per_page": 50
+    "notification_per_page": 50,
+    "advertising": "DM me '#subscribe' to get notified of new xkcd's!"
 }
 ```
 
@@ -78,6 +79,7 @@ Because it contains credentials, the `config.json` I am using is not uploaded, a
 -   **debug**: boolean indicating whether to run in debug mode.
 -   **test_xkcd**: when set to `true`, xkcdbot fetches xkcd once, and publishes it regardless of whether there is an update.
 -   **test_notifications**: when set to `true`, xkcdbot gets notifications once and executes actions (subscribe etc.)
+- **advertising**: xkcdbot will insert this at the end of CW text (spoiler_text in the Status entity). Keep an eye on the character limit.
 
 Debug mode:
 

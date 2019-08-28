@@ -27,7 +27,7 @@ const toot = (bot, filename, num, title, alt, options = null) => {
             // attach media to status and post
             // when in debug mode, DM maintainer
             bot.post('statuses', {
-                spoiler_text: `${num}. ${title}`,
+                spoiler_text: `${num}. ${title} | ${config.advertising}`,
                 status:
                     `alt text: ${alt}\n\n` +
                     `(https://xkcd.com/${num})\n` +
