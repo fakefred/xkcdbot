@@ -6,7 +6,6 @@
 
 const fs = require('fs-extra')
 const config = fs.readJSONSync('./config.json')
-const subscribers = fs.readJSONSync(config.subscribers_file)
 
 const constructComments = accts => {
     let comments = [config.comment_for_subscribers_prompt]
@@ -24,6 +23,7 @@ const constructComments = accts => {
 }
 
 const publishComments = (bot, original_toot_id) => {
+    const subscribers = fs.readJSONSync(config.subscribers_file)
     constructComments(subscribers).forEach(cmt => {
         bot.post('statuses', {
             in_reply_to_id: original_toot_id,
