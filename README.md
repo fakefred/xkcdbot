@@ -10,10 +10,7 @@ This is a bot for [Mastodon](https://joinmastodon.org) which publishes the lates
 -   If you want xkcdbot to mention you at every comic update, **toot the following text: `@xkcdbot@botsin.space #subscribe`**.
 -   In case you want to be _unlisted_ (a.k.a. unsubscribe), **toot the following text: `@xkcdbot@botsin.space #unsubscribe`**.
 
-The "subscription" feature works like this:  
-![Screenshot describing how this works](https://blog.fkfd.me/posts/5/screenshot.png)
-
-Either you subscribed or unsubscribed, you will receive a direct message from xkcdbot with the content `@<your username> successfully [un]subscribed.` within five minutes. If xkcdbot does not respond in ten minutes, try again. If _this_ also fails, the bot probably crashed, or is down. Better check its [profile page](https://botsin.space/@xkcdbot) to see its status. If it says "UP" but experimentally isn't, please contact its maintainer (see profile page.)
+Either you subscribed or unsubscribed, you will receive a direct message from xkcdbot with the content `@<your username> successfully [un]subscribed.` within five minutes. If xkcdbot does not respond in ten minutes, try again. If _this_ also fails, the bot probably crashed, or is down. Better check its [profile page](https://botsin.space/@xkcdbot) to see its status. If it says "UP" but experimentally isn't, please contact me.
 
 ## Hosting Guide
 
@@ -64,22 +61,20 @@ Because it contains credentials, the `config.json` I am using is not uploaded, a
     "alt_text_char_limit": 400,
     "comment_for_subscribers_prompt": "A heads-up for my subscribers:",
     "notification_per_page": 50,
-    "advertising": "DM me '#subscribe' to get notified of new xkcd's!"
 }
 ```
 
--   **api_url**: the API's base URL. Usually `<instance>/api/v1/`.
+-   **api_url**: the API's base URL, e.g. `https://botsin.space/api/v1/`.
 -   **access_token**: the access token you obtained.
 -   **maintainer**: when in debug mode, xkcdbot publishes xkcd comics as direct messages. The maintainer is addressed in such message.
--   **operators**: [NYI] list of operators, i.e. users with admin access to this bot. In current plans, this could include force shutdown with a :hammer: emoji, print logs and uptime inquiry.
--   **poll_xkcd**: interval between two xkcd fetches.
+-   **operators**: [NYI] list of operators, i.e. users with admin access to this bot.
+-   **poll_xkcd**: interval between two xkcd fetches, in minutes.
 -   **get_notifications**: interval between two notification GET reqs. As for now only used to check subscription. Expect huge changes.
 -   **record_subscription**: [NYI] self-explanatory.
 -   **mention_subscribers**: [NYI] toggle mention-subscribers service.
 -   **debug**: boolean indicating whether to run in debug mode.
 -   **test_xkcd**: when set to `true`, xkcdbot fetches xkcd once, and publishes it regardless of whether there is an update.
 -   **test_notifications**: when set to `true`, xkcdbot gets notifications once and executes actions (subscribe etc.)
-- **advertising**: xkcdbot will insert this at the end of CW text (spoiler_text in the Status entity). Keep an eye on the character limit.
 
 Debug mode:
 

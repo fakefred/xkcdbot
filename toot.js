@@ -19,7 +19,7 @@ const toot = (bot, filename, num, title, alt, options = null) => {
     // upload image to mastodon as Media attachment
     bot.post('media', {
         file: fs.createReadStream(filename),
-        description: alt,
+        description: 'xkcd comic (alt text in progress)',
         focus: '-1,1' // upper-left corner
     })
         .then(res => {
@@ -27,13 +27,14 @@ const toot = (bot, filename, num, title, alt, options = null) => {
             // attach media to status and post
             // when in debug mode, DM maintainer
             bot.post('statuses', {
-                spoiler_text: `${num}. ${title} | ${config.advertising}`,
+                spoiler_text: `${num}. ${title}`,
                 status:
-                    `alt text: ${alt}\n\n` +
+                    `title text: ${alt}\n\n` +
                     `(https://xkcd.com/${num})\n` +
+                    `(https://www.explainxkcd.com/wiki/index.php/${num})\n` +
                     (debug ? maintainer : ''),
                 media_ids: [res.data.id],
-                visibility: debug ? 'direct' : 'public',
+                visibility: debug ? 'direct' : 'unlisted',
                 sensitive: false
             }).then(resp => {
                 log('toot published')

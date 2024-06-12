@@ -23,6 +23,5 @@
     "subscribers_file": "./subscribers.json",
     "alt_text_char_limit": 400,
     "comment_for_subscribers_prompt": "A heads-up for my subscribers:",
-    "notification_per_page": 50,
-    "advertising": "DM me '#subscribe' to get notified of new xkcd's!"
+    "notification_per_page": 50
 }
